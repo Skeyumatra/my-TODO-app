@@ -2,5 +2,6 @@ from django.urls import path
 from . import views
 urlpatterns = [
     path("",views.homePage,name="home"),
-    path("addTask/",views.addTask,name="addTask")
+    path("addTask/",views.AddTask,name="addTask"),
+    path("editTask/<str:pk>/",views.editTaskName,name="editTask")
 ]

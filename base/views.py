@@ -1,18 +1,30 @@
 from django.shortcuts import render, redirect
-from .forms import TaskForm
+from . import forms
 from . import models
 # Create your views here.
 def homePage(request):
-    tasks=models.Task.objects.all()
+    tasks=models.Task.objects.all()  #pulling tasks row from db
     return render(request,"home.html",{"tasks":tasks})
 
-def addTask(request):
-    task=TaskForm()
+def AddTask(request):
+    task=forms.AddTask() #provide the form
     if request.method=="POST":
-        task=TaskForm(request.POST)
+        task=forms.AddTask(request.POST) #taking input
         if task.is_valid():
-            task.save()
-            return redirect("home")
+            task.save()   #adding to db task row
+            return redirect("home") #back to the home
     else:
-        task=TaskForm()
+        task=forms.AddTask()
     return render(request,"addTask.html",{"task":task})
+
+
+def editTaskName(request,pk):
+    form=forms.editTask() #provide the form
+    if request.method=="POST":
+        form=forms.editTask(request.POST)
+        if form.is_valid():
+            task = models.Task.objects.get(id=pk) #taking the task object that its id=pk
+            task.task=form.cleaned_data["task"]
+            task.save()    #changing to edited version and saving to db
+            return redirect("/")
+    return render(request,"editTask.html",{"form":form})

@@ -9,10 +9,12 @@
 </head>
 <body>
     <a href="addTask/">Add a new task</a>
-
+    
+    
+    <!--ordering the tasks depends on id-->
     <dl>
         {%for task in tasks%}
-        <li>{{task.id}}--{{task.task}}</li>
+        <li>{{task.id}}--{{task.task}}      <a href="editTask/{{task.id}}/">Edit</a></li>  
         {%endfor%}
     </dl>
 </body>
