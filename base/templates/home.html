@@ -12,15 +12,29 @@
     
     
     <!--ordering the tasks depends on id-->
+    <div id="TaskList">
+    
+    <h2>TASKS: </h2> 
+    
+    <form action="" method="post">
+        <select name="listMethod" id="listMethod">
+            <option value="all">All</option>
+            <option value="achieved">achieved</option>
+            <option value="notAchieved">not achieved</option>
+        </select>
+    </form>
+    
+    </div>
+    
     <dl>
         {%for task in tasks%}
         
         {% if task.isAchieved%}
-        <li>{{task.id}}--{{task.task}}      <a href="editTask/{{task.id}}/">Edit</a> <a href="achieveTask/{{task.id}}">Mark as not achieved</a></li>
+        <li>{{task.id}}--{{task.task}}      <a href="editTask/{{task.id}}/">Edit</a> <a href="achieveTask/{{task.id}}">Mark as not achieved</a> <a href="deleteTask/{{task.id}}">delete</a></li>
         
         {% else %}
         
-        <li>{{task.id}}--{{task.task}}      <a href="editTask/{{task.id}}/">Edit</a> <a href="achieveTask/{{task.id}}">Mark as achieved</a></li>
+        <li>--{{task.task}}      <a href="editTask/{{task.id}}/">Edit</a> <a href="achieveTask/{{task.id}}">Mark as achieved</a> <a href="deleteTask/{{task.id}}/">delete</a></li>
         {%endif%}
         
         {%endfor%}

@@ -39,3 +39,7 @@ def achieveTask(request,pk):
         task.isAchieved=True    #if task isn't achieved, mark as achieved
         task.save()
     return redirect("/")
+
+def deleteTask(request,pk):
+    models.Task.objects.get(pk=pk).delete()
+    return redirect("/")
