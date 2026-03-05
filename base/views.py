@@ -3,8 +3,18 @@ from . import forms
 from . import models
 # Create your views here.
 def homePage(request):
-    tasks=models.Task.objects.all()  #pulling tasks row from db
-    return render(request,"home.html",{"tasks":tasks})
+    tasks=models.Task.objects.all()
+    select="all"
+    if request.method=="POST":
+        select=request.POST.get("listMethod")  #getting form that specify the listing method
+        if select=="all":
+            tasks=models.Task.objects.all()  #pulling all tasks row from db
+        elif select=="achieved":
+            tasks=models.Task.objects.filter(isAchieved=True)
+        elif select=="notAchieved":
+            tasks=models.Task.objects.filter(isAchieved=False)
+    context={"tasks":tasks,"select":select}
+    return render(request,"home.html",context)
 
 def AddTask(request):
     task=forms.AddTask() #provide the form
@@ -43,3 +53,6 @@ def achieveTask(request,pk):
 def deleteTask(request,pk):
     models.Task.objects.get(pk=pk).delete()
     return redirect("/")
+
+
+

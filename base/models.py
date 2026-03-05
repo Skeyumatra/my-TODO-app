@@ -4,3 +4,5 @@ from django.db import models
 class Task(models.Model):
     task=models.CharField(max_length=30)  #task name
     isAchieved=models.BooleanField(default=False) 
+
+

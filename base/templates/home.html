@@ -17,11 +17,13 @@
     <h2>TASKS: </h2> 
     
     <form action="" method="post">
-        <select name="listMethod" id="listMethod">
-            <option value="all">All</option>
-            <option value="achieved">achieved</option>
-            <option value="notAchieved">not achieved</option>
-        </select>
+    {% csrf_token %}
+    <select name="listMethod" id="listMethod" onchange="this.form.submit()">
+        <option value="">-</option>
+        <option value="all">All</option>
+        <option value="achieved">Achieved</option>
+        <option value="notAchieved">Not Achieved</option>
+    </select>
     </form>
     
     </div>
@@ -30,11 +32,11 @@
         {%for task in tasks%}
         
         {% if task.isAchieved%}
-        <li>{{task.id}}--{{task.task}}      <a href="editTask/{{task.id}}/">Edit</a> <a href="achieveTask/{{task.id}}">Mark as not achieved</a> <a href="deleteTask/{{task.id}}">delete</a></li>
+        <li>--{{task.task}} ✅ &nbsp;&nbsp;&nbsp;&nbsp;<a href="editTask/{{task.id}}/">Edit</a> <a href="achieveTask/{{task.id}}">Mark as not achieved</a> <a href="deleteTask/{{task.id}}">delete</a></li>
         
         {% else %}
         
-        <li>--{{task.task}}      <a href="editTask/{{task.id}}/">Edit</a> <a href="achieveTask/{{task.id}}">Mark as achieved</a> <a href="deleteTask/{{task.id}}/">delete</a></li>
+        <li>--{{task.task}} ❌  &nbsp;&nbsp;&nbsp;&nbsp;   <a href="editTask/{{task.id}}/">Edit</a> <a href="achieveTask/{{task.id}}">Mark as achieved</a> <a href="deleteTask/{{task.id}}/">delete</a></li>
         {%endif%}
         
         {%endfor%}
