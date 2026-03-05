@@ -14,7 +14,15 @@
     <!--ordering the tasks depends on id-->
     <dl>
         {%for task in tasks%}
-        <li>{{task.id}}--{{task.task}}      <a href="editTask/{{task.id}}/">Edit</a></li>  
+        
+        {% if task.isAchieved%}
+        <li>{{task.id}}--{{task.task}}      <a href="editTask/{{task.id}}/">Edit</a> <a href="achieveTask/{{task.id}}">Mark as not achieved</a></li>
+        
+        {% else %}
+        
+        <li>{{task.id}}--{{task.task}}      <a href="editTask/{{task.id}}/">Edit</a> <a href="achieveTask/{{task.id}}">Mark as achieved</a></li>
+        {%endif%}
+        
         {%endfor%}
     </dl>
 </body>

@@ -23,8 +23,19 @@ def editTaskName(request,pk):
     if request.method=="POST":
         form=forms.editTask(request.POST)
         if form.is_valid():
-            task = models.Task.objects.get(id=pk) #taking the task object that its id=pk
+            task = models.Task.objects.get(pk=pk) #taking the task object that its id=pk
             task.task=form.cleaned_data["task"]
             task.save()    #changing to edited version and saving to db
             return redirect("/")
     return render(request,"editTask.html",{"form":form})
+
+
+def achieveTask(request,pk):
+    task=models.Task.objects.get(pk=pk) #getting the selected object
+    if task.isAchieved:
+        task.isAchieved=False   #if task is achieved, mark as not achieved
+        task.save()
+    else:
+        task.isAchieved=True    #if task isn't achieved, mark as achieved
+        task.save()
+    return redirect("/")
